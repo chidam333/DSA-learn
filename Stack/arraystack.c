@@ -18,21 +18,20 @@ int isFull(int max){
     else{return 0;}
 }
 void push(int n,int max){
-    if(isFull(max)){
-        printf("The stack is overflowing");
+    if(isFull(max)==1){
+        printf("The stack is overflowing\n");
     }
     else{
         s.top+=1;
         s.a[s.top]=n;
-        printf("Success");
     }
 }
 int pop(){
-    if(isEmpty()){
-        printf("The stack is underflowing ");
+    if(isEmpty()==1){
+        printf("The stack is underflowing\n ");
     }
     else{
-        printf("The dequed element is %d",s.a[s.top]);
+        printf("The dequed element is %d\n",s.a[s.top]);
         s.top-=1;
     }
 }
