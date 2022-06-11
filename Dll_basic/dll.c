@@ -1,36 +1,36 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"dll.h"
-doubleLLnode* insbeg(doubleLLnode *first,doubleLLnode *last,int x){
+pos insbeg(pos po,int x){
     doubleLLnode *t;
     t->data=x;
     t->next=t->prev=NULL;
-    if(first==NULL){
+    if(po.first==NULL){
         t->next=t->prev=NULL;
-        first=last=t;
-        return first;
+        po.first=po.last=t;
+        return po;
     }
-    t->next=first;
-    first->prev=t;
-    first=t;
-    return first;
+    t->next=po.first;
+    po.first->prev=t;
+    po.first=t;
+    return po;
 }
-doubleLLnode* inspos(doubleLLnode *first,doubleLLnode *last,int x,int p){
+pos inspos(pos po,int x,int p){
     doubleLLnode *t;
     t->data=x;
     t->prev=t->next=NULL;
-    if(p==1 && first==NULL){
+    if(p==1 && po.first==NULL){
         t->next=NULL;
-        first=t;
-        return first;
+        po.first=t;
+        return po;
     }
     if(p==1){
-        t->next=first;
-        first->prev=t;
-        first=t;
-        return first;
+        t->next=po.first;
+        po.first->prev=t;
+        po.first=t;
+        return po;
     }
-    doubleLLnode *cur=first;
+    doubleLLnode *cur=po.first;
     int count=0;
     while(cur!=NULL && count!=p){
         cur=cur->next;
@@ -40,23 +40,23 @@ doubleLLnode* inspos(doubleLLnode *first,doubleLLnode *last,int x,int p){
     t->prev=cur->prev;
     cur->prev=t;
     cur->prev->next=t;
-    return first;
+    return po;
 }
-doubleLLnode* insord(doubleLLnode *first,doubleLLnode *last,int x){
+pos insord(pos po,int x){
     doubleLLnode *t;
     t->data=x;
     t->prev=t->next=NULL;
-    if(first=NULL){
-        first=t;
-        return first;
+    if(po.first=NULL){
+        po.first=t;
+        return po;
     }
-    if(x<first->data){
-        t->next=first;
-        first->prev=t;
-        first=t;
-        return first;
+    if(x<po.first->data){
+        t->next=po.first;
+        po.first->prev=t;
+        po.first=t;
+        return po;
     }
-    doubleLLnode *cur=first;
+    doubleLLnode *cur=po.first;
     while (cur!=NULL && x<cur->data){
         cur=cur->next;
     }
@@ -66,15 +66,15 @@ doubleLLnode* insord(doubleLLnode *first,doubleLLnode *last,int x){
     curprev=cur->prev;
     curprev->next=t;
     cur->prev=t;
-    return first;
+    return po;
 }
-doubleLLnode* deletev(doubleLLnode *first,doubleLLnode *last,int x){
-    doubleLLnode *cur=first;
-    if(first->data==x){
-        first=cur->next;
+pos deletev(pos po,int x){
+    doubleLLnode *cur=po.first;
+    if(po.first->data==x){
+        po.first=cur->next;
         cur->next->prev=NULL;
         free(cur);
-        return first;
+        return po;
     }
     while(cur!=NULL && x!=cur->data){
         cur=cur->next;
@@ -83,10 +83,10 @@ doubleLLnode* deletev(doubleLLnode *first,doubleLLnode *last,int x){
     cur->next->prev=cur->prev;
     cur->prev->next=cur->next;
     free(cur);
-    return first;
+    return po;
 }
-void display(doubleLLnode *first,doubleLLnode *last){
-    doubleLLnode *cur=first;
+void display(pos po){
+    doubleLLnode *cur=po.first;
     while(cur!=NULL){
         printf("%d\n",cur->data);
         cur=cur->next;

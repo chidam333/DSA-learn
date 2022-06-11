@@ -3,8 +3,12 @@ typedef struct dll{
     struct dll *next;
     struct dll *prev;
 }doubleLLnode;
-doubleLLnode *insbeg(doubleLLnode *first,doubleLLnode *last,int x);
-doubleLLnode *inspos(doubleLLnode *first,doubleLLnode *last,int x,int p);
-doubleLLnode *insord(doubleLLnode *first,doubleLLnode *last,int x);
-doubleLLnode *deletev(doubleLLnode *first,doubleLLnode *last,int x);
-void display(doubleLLnode *first,doubleLLnode *last);
+typedef struct p{
+    doubleLLnode *first;
+    doubleLLnode *last;
+}pos;
+pos insbeg(pos po,int x);
+pos inspos(pos po,int x,int p);
+pos insord(pos po,int x);
+pos deletev(pos po,int x);
+void display(pos po);
